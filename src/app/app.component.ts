@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'Popmenu';
+  title = 'PopMenu';
   hide = true;
 
   constructor(

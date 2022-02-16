@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuLandingComponent } from './menu-landing.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MenuLandingComponent', () => {
   let component: MenuLandingComponent;
@@ -8,7 +9,8 @@ describe('MenuLandingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuLandingComponent ]
+      declarations: [ MenuLandingComponent ],
+      imports: [ HttpClientTestingModule ]
     })
     .compileComponents();
   }));

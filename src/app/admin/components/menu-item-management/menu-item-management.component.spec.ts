@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuItemManagementComponent } from './menu-item-management.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MenuItemManagementComponent', () => {
   let component: MenuItemManagementComponent;
@@ -8,7 +11,8 @@ describe('MenuItemManagementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuItemManagementComponent ]
+      declarations: [ MenuItemManagementComponent ],
+      imports: [MatDialogModule, HttpClientTestingModule]
     })
     .compileComponents();
   }));

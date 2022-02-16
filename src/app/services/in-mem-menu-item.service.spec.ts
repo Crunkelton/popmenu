@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InMemMenuItemService } from './in-mem-menu-item-service.service';
+import { InMemMenuItemService } from './in-mem-menu-item.service';
 
 describe('InMemMenuItemServiceService', () => {
   let service: InMemMenuItemService;
