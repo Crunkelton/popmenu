@@ -1,0 +1,14 @@
+<mat-card class="m-a-10" style="width: 300px;height: 400px">
+  <mat-card-header>
+    <mat-card-title>
+      {{menuItem.title}}
+    </mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src="{{menuItem.image}}" alt="Image alt text" >
+  <mat-card-content>
+    <h3>{{menuItem.price | currency}}</h3>
+    <p>
+      {{menuItem.description}}
+    </p>
+  </mat-card-content>
+</mat-card>
