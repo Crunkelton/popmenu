@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MenuService } from './services/menu.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,23 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'popmenu';
+  hide = true;
+
+  constructor(
+    private menuService: MenuService,
+    private router: Router
+  ) { }
+
+  logMenuItem(): void {
+    this.menuService.getMenuItems().subscribe(x => console.log(x));
+  }
+
+  toggle(): void {
+    this.hide = !this.hide;
+  }
+
+  route(url: string) {
+    this.toggle();
+    this.router.navigate([url]);
+  }
 }

@@ -15,7 +15,9 @@ export class MenuLandingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.menuService.menuItems.subscribe(x => this.menuItems = x);
+    // this.menuService.menuItems.subscribe(x => this.menuItems = x);
+
+    this.menuService.getMenuItems().subscribe((response: MenuItem[]) => this.menuItems = response);
   }
 
 }

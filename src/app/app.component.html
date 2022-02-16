@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggle()">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Tasty Menu</span>
@@ -7,10 +7,20 @@
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logMenuItem()">
     <mat-icon>share</mat-icon>
   </button>
 </mat-toolbar>
+
+<div #sideBar class="sidebar" [ngClass]="{'visually-hidden': hide}">
+  <button mat-icon-button (click)="toggle()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <mat-list role="list">
+    <mat-list-item role="listitem" class="clickable" (click)="route('/')">Menu</mat-list-item>
+    <mat-list-item role="listitem" class="clickable" (click)="route('/admin/menu-item')">Edit</mat-list-item>
+  </mat-list>
+</div>
 
 <div class="main-content">
   <router-outlet></router-outlet>
