@@ -1,0 +1,29 @@
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Image</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let item of menuItems">
+      <tr class="clickable" [ngClass]="{ 'table-success': isSelected(item)}" (click)="select(item)">
+        <td>{{item.id}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.image | slice:0 : 30}}...</td>
+        <td>{{item.description | slice:0 : 30}}...</td>
+        <td>{{item.price | currency:'USD':'symbol':'1.2-2'}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <button mat-raised-button type="button" class="m-2" (click)="fakeItem()">Fake Item</button>
+  <button mat-raised-button type="button" class="mb-2" (click)="addNew(newItem)">Add</button>
+
+  <app-menu-item-form #menuItemForm [ngClass]="{ 'visually-hidden': selected == null }" (onSave)="onSave($event)"></app-menu-item-form>
+</div>

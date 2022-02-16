@@ -10,10 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuItemManagementComponent } from './components/menu-item-management/menu-item-management.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, MenuItemFormComponent],
+  declarations: [AdminComponent, MenuItemFormComponent, MenuItemManagementComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
