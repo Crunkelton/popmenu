@@ -42,13 +42,13 @@ export class MenuItemFormComponent implements OnInit {
       this.menuService.getNextId().subscribe(nextId => {
         item.id = nextId;
         this.menuItemForm.patchValue({ id: item.id});
-        this.menuService.addMenuItem(item)
+        this.menuService.createMenuItem(item)
           .subscribe(() => {
             this.onSave.emit(this.menuItemForm.value);
           });
       });
     } else {
-      this.menuService.addMenuItem(item)
+      this.menuService.editMenuItem(item)
         .subscribe(() => {
           this.onSave.emit(this.menuItemForm.value);
         });

@@ -35,7 +35,7 @@ describe('MenuService', () => {
   const newMenuItem = {id: 100, title: 'new item', description: 'new descirption', image: 'http://myurl.com', price: 1.99 };
 
   it('should add a new menu item', (done: DoneFn) => {
-    service.addMenuItem(newMenuItem).subscribe((value: MenuItem) => {
+    service.createMenuItem(newMenuItem).subscribe((value: MenuItem) => {
       expect(value).toEqual(newMenuItem);
       done();
     });
