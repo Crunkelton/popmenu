@@ -31,20 +31,30 @@ export class MenuItemFormComponent implements OnInit {
   }
 
   setItem(item: MenuItem): void {
+    this.menuItemForm.reset();
     this.menuItemForm.patchValue(item);
   }
 
   onSubmit(): void {
     const item = this.menuItemForm.value;
 
-    this.menuService.addMenuItem(item)
-      .subscribe(() => {
-        this.onSave.emit(this.menuItemForm.value);
-
-        if (item.id == null) {
-          this.menuItemForm.reset();
-        }
+    if (item.id === 0) {
+      this.menuService.getNextId().subscribe(nextId => {
+        item.id = nextId;
+        this.menuItemForm.patchValue({ id: item.id});
+        this.menuService.addMenuItem(item)
+          .subscribe(() => {
+            this.onSave.emit(this.menuItemForm.value);
+          });
       });
+    } else {
+      this.menuService.addMenuItem(item)
+        .subscribe(() => {
+          this.onSave.emit(this.menuItemForm.value);
+        });
+    }
+
+
   }
 
 }

@@ -11,6 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuItemManagementComponent } from './components/menu-item-management/menu-item-management.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SureCheckModule } from '../shared/sure-check/sure-check.module';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { MenuItemManagementComponent } from './components/menu-item-management/m
     MatButtonModule,
     MatCardModule,
     CurrencyMaskModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    SureCheckModule
   ]
 })
 export class AdminModule { }

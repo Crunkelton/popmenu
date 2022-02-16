@@ -21,9 +21,11 @@
     </ng-container>
     </tbody>
   </table>
+  <mat-progress-bar *ngIf="fetchingResults" mode="indeterminate"></mat-progress-bar>
 
   <button mat-raised-button type="button" class="m-2" (click)="fakeItem()">Fake Item</button>
-  <button mat-raised-button type="button" class="mb-2" (click)="addNew(newItem)">Add</button>
+  <button mat-raised-button type="button" color="warn" class="mb-2" (click)="remove()" [disabled]="selected == null || selected.id == null">Delete</button>
+  <button mat-raised-button type="button" class="mb-2" (click)="addNew(newItem)">New</button>
 
   <app-menu-item-form #menuItemForm [ngClass]="{ 'visually-hidden': selected == null }" (onSave)="onSave($event)"></app-menu-item-form>
 </div>

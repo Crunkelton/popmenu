@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{headerText}}</h1>
+
+<div mat-dialog-content class="mb-2">
+  <span [innerHTML]="message"></span>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button type="button" color="warn" (click)="no()" cdkFocusInitial>{{noText}}</button>
+  <button mat-raised-button type="button" color="primary" (click)="yes()">{{yesText}}</button>
+</div>

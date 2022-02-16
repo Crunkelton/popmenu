@@ -30,4 +30,8 @@ export class MenuService {
   addMenuItem(menuItem: MenuItem): Observable<any> {
     return this.http.post('api/menuItems', menuItem);
   }
+
+  removeMenuItem(menuItem: MenuItem): Observable<any> {
+    return this.http.delete(`api/menuItems/${menuItem.id}`);
+  }
 }
