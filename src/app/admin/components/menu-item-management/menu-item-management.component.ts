@@ -15,6 +15,7 @@ import { SureCheckComponent } from '../../../shared/sure-check/sure-check.compon
 export class MenuItemManagementComponent implements OnInit {
   menuItems: MenuItem[];
   selected: MenuItem;
+  editing: MenuItem;
   @ViewChild('menuItemForm') menuItemForm: MenuItemFormComponent;
   fetchingResults = false;
 
@@ -59,7 +60,9 @@ export class MenuItemManagementComponent implements OnInit {
   }
 
   addNew(item: MenuItem): void {
-    this.select(item);
+    this.selected = null;
+    this.editing = item;
+    this.menuItemForm.setItem(item);
   }
 
   remove(): void {
@@ -83,6 +86,7 @@ export class MenuItemManagementComponent implements OnInit {
 
   select(item: MenuItem): void {
     this.selected = item;
+    this.editing = item;
     this.menuItemForm.setItem(item);
   }
 
