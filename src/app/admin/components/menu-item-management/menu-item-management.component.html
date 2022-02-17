@@ -17,7 +17,7 @@
           <app-menu-item-card [menuItem]="item">
             <ng-container title>
               <app-editable (update)="updateField(index, 'title')">
-                <ng-template appViewMode>{{item.title}}</ng-template>
+                <ng-template appViewMode><span class="clickable">{{item.title}}</span></ng-template>
                 <ng-template appEditMode>
                   <input appEditableOnEnter appEditableOnEscape class="form-control" [formControl]="getControl(index, 'title')" focusable>
                 </ng-template>
@@ -36,7 +36,7 @@
             <ng-container price>
               <app-editable (update)="updateField(index, 'price')">
                 <ng-template appViewMode>
-                  <h3 class="mt-2">{{item.price | currency}}</h3>
+                  <h3 class="mt-2 clickable">{{item.price | currency}}</h3>
                 </ng-template>
                 <ng-template appEditMode>
                   <input appEditableOnEnter appEditableOnEscape class="form-control m-2" [formControl]="getControl(index, 'price')" focusable
@@ -48,7 +48,7 @@
             <ng-container description>
               <app-editable (update)="updateField(index, 'description')">
                 <ng-template appViewMode>
-                  <p>{{item.description | slice:0 : 130}}...</p>
+                  <p class="clickable">{{item.description | slice:0 : 130}}...</p>
                 </ng-template>
                 <ng-template appEditMode>
                   <textarea appEditableOnEnter appEditableOnEscape matInput rows="4" class="form-control" [formControl]="getControl(index, 'description')" focusable></textarea>

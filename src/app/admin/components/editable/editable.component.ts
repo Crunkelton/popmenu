@@ -1,8 +1,8 @@
-import { Component, ContentChild, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { EditModeDirective } from '../../directives/edit-mode.directive';
 import { ViewModeDirective } from '../../directives/view-mode.directive';
 import { fromEvent, Subject } from 'rxjs';
-import { filter, switchMapTo, take } from 'rxjs/operators';
+import { filter, switchMapTo, take, takeUntil } from 'rxjs/operators';
 
 /**
  * Controls the view state for inline editing. Switches between view and edit templates. Emits an update() event to signal a change/update.
@@ -12,10 +12,11 @@ import { filter, switchMapTo, take } from 'rxjs/operators';
   templateUrl: './editable.component.html',
   styleUrls: ['./editable.component.sass']
 })
-export class EditableComponent implements OnInit {
+export class EditableComponent implements OnInit, OnDestroy {
   @Output() update = new EventEmitter();
   @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
   @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   editMode = new Subject();
   editMode$ = this.editMode.asObservable();
@@ -34,6 +35,11 @@ export class EditableComponent implements OnInit {
     // this.editModeHandler();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
   private get element() {
     return this.host.nativeElement;
   }
@@ -43,7 +49,10 @@ export class EditableComponent implements OnInit {
    * this will hide the view state template and then show the edit state template.
    */
   private viewModeHandler() {
-    fromEvent(this.element, 'dblclick').pipe().subscribe(() => {
+    fromEvent(this.element, 'dblclick')
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(() => {
       this.mode = 'edit';
       this.editMode.next(true);
     });
@@ -55,11 +64,13 @@ export class EditableComponent implements OnInit {
    */
   private editModeHandler() {
     const clickOutside$ = fromEvent(document, 'click').pipe(
+      takeUntil(this.destroy$),
       filter(({ target }) => this.element.contains(target) === false),
       take(1)
     );
 
     this.editMode$.pipe(
+      takeUntil(this.destroy$),
       switchMapTo(clickOutside$)
     ).subscribe(() => {
       this.update.next();
