@@ -10,22 +10,64 @@
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngFor="let item of menuItems">
-      <tr class="clickable" [ngClass]="{ 'table-success': isSelected(item)}" (click)="select(item)">
+    <ng-container *ngFor="let item of menuItems; index as index">
+      <tr class="clickable" [ngClass]="{ 'table-success': isSelected(item)}">
         <td>{{item.id}}</td>
-        <td>{{item.title}}</td>
-        <td>{{item.image | slice:0 : 30}}...</td>
-        <td>{{item.description | slice:0 : 30}}...</td>
-        <td>{{item.price | currency:'USD':'symbol':'1.2-2'}}</td>
+        <td>
+          <app-editable (update)="updateField(index, 'title')">
+            <ng-template appViewMode>{{item.title}}</ng-template>
+            <ng-template appEditMode>
+              <input appEditableOnEnter appEditableOnEscape class="form-control" [formControl]="getControl(index, 'title')" focusable>
+            </ng-template>
+          </app-editable>
+        </td>
+        <td>
+          <app-editable (update)="updateField(index, 'image')">
+            <ng-template appViewMode>{{item.image | slice:0 : 30}}...</ng-template>
+            <ng-template appEditMode>
+              <input appEditableOnEnter appEditableOnEscape class="form-control" [formControl]="getControl(index, 'image')" focusable>
+            </ng-template>
+          </app-editable>
+        </td>
+        <td>
+          <app-editable (update)="updateField(index, 'description')">
+            <ng-template appViewMode>{{item.description | slice:0 : 30}}...</ng-template>
+            <ng-template appEditMode>
+              <textarea appEditableOnEnter appEditableOnEscape matInput class="form-control" [formControl]="getControl(index, 'description')" focusable></textarea>
+            </ng-template>
+          </app-editable>
+        </td>
+        <td>
+          <app-editable (update)="updateField(index, 'price')">
+            <ng-template appViewMode>{{item.price | currency:'USD':'symbol':'1.2-2'}}</ng-template>
+            <ng-template appEditMode>
+              <input appEditableOnEnter appEditableOnEscape class="form-control" [formControl]="getControl(index, 'price')" focusable
+                     currencyMask [options]="{ align: 'left', precision: 2, prefix: '$ ' }">
+            </ng-template>
+          </app-editable>
+        </td>
       </tr>
     </ng-container>
     </tbody>
   </table>
   <mat-progress-bar *ngIf="fetchingResults" mode="indeterminate"></mat-progress-bar>
 
-  <button mat-raised-button type="button" class="m-2" (click)="fakeItem()">Fake Item</button>
-  <button mat-raised-button type="button" color="warn" class="mb-2" (click)="remove()" [disabled]="selected == null || selected.id == null">Delete</button>
-  <button mat-raised-button type="button" class="mb-2" (click)="addNew(newItem)">New</button>
+  <div class="d-flex">
+    <div class="m-1 w-100">
+      <button mat-raised-button type="button" color="primary" class="ma-2" (click)="fakeItem()">Fake Item</button>
+    </div>
+    <div class="m-1 flex-shrink-1">
+      <button mat-raised-button type="button" color="warn" class="ma-2" (click)="remove()" [disabled]="selected == null || selected.id == null">Delete</button>
+    </div>
+    <div class="m-1 flex-shrink-1">
+      <button mat-raised-button type="button" color="primary" class="ma-2" (click)="addNew(newItem)">New</button>
+    </div>
+  </div>
 
-  <app-menu-item-form #menuItemForm [ngClass]="{ 'visually-hidden': editing == null }" (onSave)="onSave($event)"></app-menu-item-form>
+  <div [ngClass]="{ 'visually-hidden': editing == null }">
+    <hr/>
+    <app-menu-item-form #menuItemForm (onSave)="onSave($event)"></app-menu-item-form>
+  </div>
+
+
 </div>

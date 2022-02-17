@@ -1,30 +1,28 @@
-<div class="container">
-  <div class="col-lg-12 col-sm-12">
-    <h1>Edit Menu Item</h1>
+<div class="col-lg-12 col-sm-12">
+  <h1>Edit Menu Item</h1>
 
-    <form [formGroup]="menuItemForm" class="edit-form" novalidate (keyup.enter)="onSubmit()">
-      <mat-form-field appearance="fill">
-        <mat-label>Title</mat-label>
-        <input matInput type="text" formControlName="title">
-      </mat-form-field>
+  <form [formGroup]="menuItemForm" class="edit-form" novalidate (keyup.enter)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" formControlName="title">
+    </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Image URL</mat-label>
-        <input matInput type="text" formControlName="image">
-      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Image URL</mat-label>
+      <input matInput type="text" formControlName="image">
+    </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input matInput type="text" formControlName="price" currencyMask [options]="{ align: 'left', precision: 2, prefix: '$ ' }">
-      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input matInput type="text" formControlName="price" currencyMask [options]="{ align: 'left', precision: 2, prefix: '$ ' }">
+    </mat-form-field>
 
-      <div class="clearfix"></div>
-      <button mat-raised-button type="button" [disabled]="!menuItemForm.valid" (click)="onSubmit()">Submit</button>
-    </form>
-  </div>
+    <div class="clearfix"></div>
+    <button mat-raised-button type="button" [disabled]="!menuItemForm.valid" (click)="onSubmit()">Submit</button>
+  </form>
 </div>

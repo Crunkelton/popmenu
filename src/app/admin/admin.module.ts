@@ -14,10 +14,25 @@ import { MenuItemManagementComponent } from './components/menu-item-management/m
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SureCheckModule } from '../shared/sure-check/sure-check.module';
+import { EditableComponent } from './components/editable/editable.component';
+import { ViewModeDirective } from './directives/view-mode.directive';
+import { EditModeDirective } from './directives/edit-mode.directive';
+import { EditableOnEnterDirective } from './directives/editable-on-enter.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EditableOnEscapeDirective } from './directives/editable-on-escape.directive';
 
 
 @NgModule({
-  declarations: [AdminComponent, MenuItemFormComponent, MenuItemManagementComponent],
+  declarations: [
+    AdminComponent,
+    MenuItemFormComponent,
+    MenuItemManagementComponent,
+    EditableComponent,
+    ViewModeDirective,
+    EditModeDirective,
+    EditableOnEnterDirective,
+    EditableOnEscapeDirective
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -29,7 +44,8 @@ import { SureCheckModule } from '../shared/sure-check/sure-check.module';
     ReactiveFormsModule,
     MatProgressBarModule,
     MatDialogModule,
-    SureCheckModule
+    SureCheckModule,
+    MatSnackBarModule
   ]
 })
 export class AdminModule { }
