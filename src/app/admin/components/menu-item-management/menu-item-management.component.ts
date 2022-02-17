@@ -17,14 +17,15 @@ import { EditableComponent } from '../editable/editable.component';
   styleUrls: ['./menu-item-management.component.sass']
 })
 export class MenuItemManagementComponent implements OnInit {
+  title = 'Manage Menu';
   menuItems: MenuItem[];
   selected: MenuItem;
   editing: MenuItem;
   @ViewChild('menuItemForm') menuItemForm: MenuItemFormComponent;
   @ViewChild('mode') mode: MatButtonToggleGroup;
   @ViewChildren(EditableComponent) editableComponents: QueryList<EditableComponent>;
-  fetchingResults = false;
-
+  http = false;
+  rowEdit: number;
   controls: FormArray;
 
   newItem: MenuItem = { id: 0, image: '', title: '', description: '', price: 0 };
@@ -67,12 +68,12 @@ export class MenuItemManagementComponent implements OnInit {
   }
 
   fetchMenuItems(): Observable<any> {
-    this.fetchingResults = true;
+    this.http = true;
     return this.menuService.getMenuItems()
       .pipe(
         tap((x: MenuItem[]) => {
           this.menuItems = x;
-          this.fetchingResults = false;
+          this.http = false;
         }));
   }
 
@@ -126,8 +127,12 @@ export class MenuItemManagementComponent implements OnInit {
 
     if (control.valid) {
       test.patchValue( { field: control.value });
+      this.http = true;
+      this.rowEdit = index;
       this.menuService.editMenuItem(test.value).subscribe(() => {
         this.menuItems[index] = test.value;
+        this.http = false;
+        this.rowEdit = null;
         this.openSnackBar('Menu item updated');
       });
     }
