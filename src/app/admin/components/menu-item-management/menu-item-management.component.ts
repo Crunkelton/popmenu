@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MenuService } from '../../../services/menu.service';
 import { MenuItem } from '../../../models/menu-item';
 import { MenuItemFormComponent } from '../menu-item-form/menu-item-form.component';
@@ -6,9 +6,10 @@ import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SureCheckComponent } from '../../../shared/sure-check/sure-check.component';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { EditableComponent } from '../editable/editable.component';
 
 @Component({
   selector: 'app-menu-item-management',
@@ -21,6 +22,7 @@ export class MenuItemManagementComponent implements OnInit {
   editing: MenuItem;
   @ViewChild('menuItemForm') menuItemForm: MenuItemFormComponent;
   @ViewChild('mode') mode: MatButtonToggleGroup;
+  @ViewChildren(EditableComponent) editableComponents: QueryList<EditableComponent>;
   fetchingResults = false;
 
   controls: FormArray;

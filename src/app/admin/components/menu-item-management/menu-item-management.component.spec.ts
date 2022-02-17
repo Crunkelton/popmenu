@@ -4,6 +4,8 @@ import { MenuItemManagementComponent } from './menu-item-management.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 describe('MenuItemManagementComponent', () => {
   let component: MenuItemManagementComponent;
@@ -12,7 +14,7 @@ describe('MenuItemManagementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MenuItemManagementComponent ],
-      imports: [MatDialogModule, HttpClientTestingModule]
+      imports: [MatDialogModule, HttpClientTestingModule, MatSnackBarModule, MatButtonToggleModule],
     })
     .compileComponents();
   }));
@@ -25,5 +27,9 @@ describe('MenuItemManagementComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a display mode', () => {
+    expect(component.mode.value).toEqual('menu');
   });
 });
