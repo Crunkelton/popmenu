@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SureCheckComponent } from '../../../shared/sure-check/sure-check.component';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-menu-item-management',
@@ -19,6 +20,7 @@ export class MenuItemManagementComponent implements OnInit {
   selected: MenuItem;
   editing: MenuItem;
   @ViewChild('menuItemForm') menuItemForm: MenuItemFormComponent;
+  @ViewChild('mode') mode: MatButtonToggleGroup;
   fetchingResults = false;
 
   controls: FormArray;

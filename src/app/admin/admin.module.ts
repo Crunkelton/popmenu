@@ -21,6 +21,8 @@ import { EditableOnEnterDirective } from './directives/editable-on-enter.directi
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EditableOnEscapeDirective } from './directives/editable-on-escape.directive';
 import { MenuItemCardModule } from '../shared/components/menu-item-card/menu-item-card.module';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { MenuItemCardModule } from '../shared/components/menu-item-card/menu-ite
     MatDialogModule,
     SureCheckModule,
     MatSnackBarModule,
-    MenuItemCardModule
+    MenuItemCardModule,
+    MatButtonToggleModule,
+    MatIconModule
   ]
 })
 export class AdminModule { }
