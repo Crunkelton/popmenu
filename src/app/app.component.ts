@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MenuService } from './services/menu.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,13 +11,8 @@ export class AppComponent {
   hide = true;
 
   constructor(
-    private menuService: MenuService,
     private router: Router
   ) { }
-
-  logMenuItem(): void {
-    this.menuService.getMenuItems().subscribe(x => console.log(x));
-  }
 
   toggle(): void {
     this.hide = !this.hide;

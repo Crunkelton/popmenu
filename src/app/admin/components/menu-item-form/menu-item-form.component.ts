@@ -23,6 +23,7 @@ export class MenuItemFormComponent implements OnInit {
   ngOnInit(): void {
     this.menuItemForm = this.formBuilder.group({
       id: [0, Validators.required],
+      menuId: [0, Validators.required],
       image: [null, [Validators.required, CustomValidators.url]],
       title: [null, Validators.required],
       description: [null, Validators.required],
@@ -32,20 +33,17 @@ export class MenuItemFormComponent implements OnInit {
 
   setItem(item: MenuItem): void {
     this.menuItemForm.reset();
-    this.menuItemForm.patchValue(item);
+    if (item != null) {
+      this.menuItemForm.patchValue(item);
+    }
   }
 
   onSubmit(): void {
-    const item = this.menuItemForm.value;
+    const item: MenuItem = this.menuItemForm.value;
 
     if (item.id === 0) {
-      this.menuService.getNextId().subscribe(nextId => {
-        item.id = nextId;
-        this.menuItemForm.patchValue({ id: item.id});
-        this.menuService.createMenuItem(item)
-          .subscribe(() => {
-            this.onSave.emit(this.menuItemForm.value);
-          });
+      this.menuService.createMenuItem(item).subscribe(() => {
+        this.onSave.emit(this.menuItemForm.value);
       });
     } else {
       this.menuService.editMenuItem(item)

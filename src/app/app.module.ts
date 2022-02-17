@@ -7,11 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { InMemMenuItemService } from './services/in-mem-menu-item.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { InMemMenuService } from './services/in-mem-menu.service';
 
 @NgModule({
     declarations: [
@@ -25,7 +25,7 @@ import { MatListModule } from '@angular/material/list';
         MatIconModule,
         MatButtonModule,
         HttpClientModule,
-        HttpClientInMemoryWebApiModule.forRoot(InMemMenuItemService),
+        HttpClientInMemoryWebApiModule.forRoot(InMemMenuService),
         MatSidenavModule,
         MatListModule
     ],

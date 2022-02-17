@@ -10,6 +10,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { EditableComponent } from '../editable/editable.component';
+import { Menu } from '../../../models/menu';
 
 @Component({
   selector: 'app-menu-item-management',
@@ -27,11 +28,13 @@ export class MenuItemManagementComponent implements OnInit {
   http = false;
   rowEdit: number;
   controls: FormArray;
+  menu: Menu;
 
-  newItem: MenuItem = { id: 0, image: '', title: '', description: '', price: 0 };
+  newItem: MenuItem = { id: 0, menuId: 0, image: '', title: '', description: '', price: 0 };
 
   tacoSoup: MenuItem = {
     id: 0,
+    menuId: 0,
     image: 'https://hips.hearstapps.com/delish/assets/17/34/1503419036-taco-soup-delish.jpg',
     title: 'Taco Soup',
     description: 'Taco soup desc',
@@ -45,17 +48,22 @@ export class MenuItemManagementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchMenuItems().subscribe(() => {
-      const toGroups = this.menuItems.map(item => {
-        return new FormGroup({
-          id: new FormControl(item.id, Validators.required),
-          title: new FormControl(item.title, Validators.required),
-          description: new FormControl(item.description, Validators.required),
-          price: new FormControl(item.price, Validators.required),
-          image: new FormControl(item.image)
+    this.menuService.getMenus().subscribe((x: Menu[]) => {
+      this.menu = x[0];
+
+      this.fetchMenuItems().subscribe(() => {
+        const toGroups = this.menuItems.map(item => {
+          return new FormGroup({
+            id: new FormControl(item.id, Validators.required),
+            menuId: new FormControl(item.menuId, Validators.required),
+            title: new FormControl(item.title, Validators.required),
+            description: new FormControl(item.description, Validators.required),
+            price: new FormControl(item.price, Validators.required),
+            image: new FormControl(item.image)
+          });
         });
+        this.controls = new FormArray(toGroups);
       });
-      this.controls = new FormArray(toGroups);
     });
   }
 
@@ -69,7 +77,7 @@ export class MenuItemManagementComponent implements OnInit {
 
   fetchMenuItems(): Observable<any> {
     this.http = true;
-    return this.menuService.getMenuItems()
+    return this.menuService.getMenuItems(this.menu.id)
       .pipe(
         tap((x: MenuItem[]) => {
           this.menuItems = x;
@@ -86,6 +94,7 @@ export class MenuItemManagementComponent implements OnInit {
 
   addNew(item: MenuItem): void {
     this.selected = null;
+    item.menuId = this.menu.id;
     this.editing = item;
     this.menuItemForm.setItem(item);
   }
@@ -105,6 +114,7 @@ export class MenuItemManagementComponent implements OnInit {
           this.selected = null;
           this.fetchMenuItems().subscribe();
           this.openSnackBar('Menu item removed');
+          this.select(null);
         });
       }
     });

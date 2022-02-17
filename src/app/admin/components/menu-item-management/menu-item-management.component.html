@@ -17,6 +17,7 @@
     <div class="row align-items-start">
       <ng-container *ngFor="let item of menuItems; index as index">
         <div class="col-lg-4 col-sm-6 col-xs-12 p-3">
+          <mat-progress-bar *ngIf="http && index == rowEdit" mode="indeterminate"></mat-progress-bar>
           <app-menu-item-card [menuItem]="item">
             <ng-container title>
               <app-editable (update)="updateField(index, 'title')">
@@ -58,10 +59,6 @@
                             focusable></textarea>
                 </ng-template>
               </app-editable>
-            </ng-container>
-
-            <ng-container footer>
-              <mat-progress-bar *ngIf="http && index == rowEdit" mode="indeterminate"></mat-progress-bar>
             </ng-container>
           </app-menu-item-card>
         </div>

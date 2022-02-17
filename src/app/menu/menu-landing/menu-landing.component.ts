@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 import { MenuItem } from '../../models/menu-item';
+import { Menu } from '../../models/menu';
 
 @Component({
   selector: 'app-menu-landing',
@@ -8,6 +9,7 @@ import { MenuItem } from '../../models/menu-item';
   styleUrls: ['./menu-landing.component.sass']
 })
 export class MenuLandingComponent implements OnInit {
+  menu: Menu;
   menuItems: MenuItem[];
 
   constructor(
@@ -15,9 +17,11 @@ export class MenuLandingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.menuService.menuItems.subscribe(x => this.menuItems = x);
-
-    this.menuService.getMenuItems().subscribe((response: MenuItem[]) => this.menuItems = response);
+    this.menuService.getMenus().subscribe((resp: Menu[]) => {
+      this.menu = resp[0];
+      this.menuService.getMenuItems(this.menu.id)
+        .subscribe((response: MenuItem[]) => this.menuItems = response);
+    });
   }
 
 }
