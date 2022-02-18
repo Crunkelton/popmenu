@@ -1,22 +1,26 @@
 <div class="container">
-  <div class="row align-items-start">
-    <ng-container *ngFor="let item of menuItems">
-      <div class="col-lg-4 col-sm-6 col-xs-12 p-3">
-        <app-menu-item-card [menuItem]="item">
-          <ng-container title>{{item.title}}</ng-container>
-          <ng-container image>
-            <img mat-card-image src="{{item.image}}" alt="Image alt text" height="200px">
-          </ng-container>
-          <ng-container price>
-            <h3>{{item.price | currency}}</h3>
-          </ng-container>
+  <mat-tab-group>
+    <mat-tab label="{{menu.menu.name}}" *ngFor="let menu of menus">
+      <div class="row align-items-start">
+        <ng-container *ngFor="let item of menu.items">
+          <div class="col-lg-4 col-sm-6 col-xs-12 p-3">
+            <app-menu-item-card [menuItem]="item">
+              <ng-container title>{{item.title}}</ng-container>
+              <ng-container image>
+                <img mat-card-image src="{{item.image}}" alt="Image alt text" height="200px">
+              </ng-container>
+              <ng-container price>
+                <h3>{{item.price | currency}}</h3>
+              </ng-container>
 
-          <ng-container description>
-            <p>{{item.description | slice:0 : 130}}...</p>
-          </ng-container>
-        </app-menu-item-card>
+              <ng-container description>
+                <p>{{item.description | slice:0 : 130}}...</p>
+              </ng-container>
+            </app-menu-item-card>
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-  </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 

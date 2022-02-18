@@ -17,8 +17,8 @@ export class MenuService {
   /**
    * Fetches the next Id in the sequence. Only for prototype purposes. Database would handle this in production.
    */
-  getNextId(menuId: number): Observable<number> {
-    return this.getMenuItems(menuId).pipe(
+  getNextId(): Observable<number> {
+    return this.getMenuItems().pipe(
       map((x: MenuItem[]) => {
         const last = x.sort((a, b) => (a.id < b.id) ? 1 : -1)[0];
         return last.id + 1;
@@ -61,12 +61,18 @@ export class MenuService {
     return this.http.put('api/menus', menu);
   }
 
+
   /**
-   * Gets All Menu Items
+   * Gets All Menu Items for a specific menu
    */
-  getMenuItems(menuId: number): Observable<MenuItem[] | Response> {
+  getMenuItemsByMenuId(menuId: number): Observable<MenuItem[] | Response> {
     return this.http
       .get<MenuItem[]>(`api/menuItems/?menuId=${menuId}`);
+  }
+
+  getMenuItems(): Observable<MenuItem[] | Response> {
+    return this.http
+      .get<MenuItem[]>(`api/menuItems`);
   }
 
   /**
@@ -74,7 +80,7 @@ export class MenuService {
    * @param menuItem New Menu Item
    */
   createMenuItem(menuItem: MenuItem): Observable<any> {
-    return this.getNextId(menuItem.menuId)
+    return this.getNextId()
       .pipe(
         tap((id: number) => menuItem.id = id),
         switchMap(() => this.http.post('api/menuItems', menuItem)),

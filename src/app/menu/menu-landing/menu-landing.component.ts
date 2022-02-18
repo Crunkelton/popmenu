@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 import { MenuItem } from '../../models/menu-item';
 import { Menu } from '../../models/menu';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu-landing',
@@ -9,18 +10,17 @@ import { Menu } from '../../models/menu';
   styleUrls: ['./menu-landing.component.sass']
 })
 export class MenuLandingComponent implements OnInit {
-  menu: Menu;
-  menuItems: MenuItem[];
+  menus: { menu: Menu, items: MenuItem[] };
 
   constructor(
-    private menuService: MenuService
+    private menuService: MenuService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.menuService.getMenus().subscribe((resp: Menu[]) => {
-      this.menu = resp[0];
-      this.menuService.getMenuItems(this.menu.id)
-        .subscribe((response: MenuItem[]) => this.menuItems = response);
+    this.activatedRoute.data.subscribe(routeData => {
+      console.log(routeData.menus);
+      this.menus = routeData.menus;
     });
   }
 

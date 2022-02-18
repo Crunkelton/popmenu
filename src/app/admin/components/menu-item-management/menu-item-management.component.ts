@@ -87,7 +87,7 @@ export class MenuItemManagementComponent implements OnInit {
 
   fetchMenuItems(): Observable<any> {
     this.http = true;
-    return this.menuService.getMenuItems(this.menu.id)
+    return this.menuService.getMenuItemsByMenuId(this.menu.id)
       .pipe(
         tap((x: MenuItem[]) => {
           this.menuItems = x;

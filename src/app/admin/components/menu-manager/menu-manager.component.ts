@@ -62,7 +62,10 @@ export class MenuManagerComponent implements OnInit {
 
   }
 
-  addNew(): void { }
+  addNew(): void {
+    this.menuForm.setMenu({ id: 0, name: '', lastEditDate: null });
+    this.editing = true;
+  }
 
   edit(): void { }
 

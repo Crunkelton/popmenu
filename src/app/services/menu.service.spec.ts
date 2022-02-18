@@ -26,7 +26,7 @@ describe('MenuService', () => {
 
   it('should match the mock menu item results',
     (done: DoneFn) => {
-      service.getMenuItems().subscribe((value: MenuItem[]) => {
+      service.getMenuItemsByMenuId().subscribe((value: MenuItem[]) => {
         expect(value).toEqual(mockMenuItems);
         done();
       });
