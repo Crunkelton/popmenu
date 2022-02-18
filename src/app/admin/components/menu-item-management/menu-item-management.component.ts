@@ -53,7 +53,8 @@ export class MenuItemManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.menuId = parseInt(params.id, 2);
+      // tslint:disable-next-line:radix
+      this.menuId = parseInt(params.id);
 
       this.menuService.getMenu(this.menuId).subscribe((resp: Menu) => {
         this.menu = resp;

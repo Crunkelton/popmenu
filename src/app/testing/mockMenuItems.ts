@@ -47,4 +47,23 @@ export const mockMenuItems = [
     price: 8.99,
     menuId: 1
   },
+
+  // Drinks
+  {
+    id: 7,
+    image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/marg-h-1526063646.jpg',
+    title: 'Fresh Margarita',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada. Ornare massa eget egestas purus viverra. Nisl nunc mi ipsum faucibus vitae aliquet.',
+    price: 9.99,
+    menuId: 2
+  },
+  {
+    id: 8,
+    image: 'https://cf.ltkcdn.net/cocktails/images/std/288405-800x533-texas-margarita-splash-sunshine.jpg',
+    title: 'Texas Margarita',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada. Ornare massa eget egestas purus viverra. Nisl nunc mi ipsum faucibus vitae aliquet.',
+    price: 12.99,
+    menuId: 2
+  },
+
 ];

@@ -1,10 +1,12 @@
-import { mockMenuItems } from './mockMenuItems';
-
 export const mockMenus = [
   {
     id: 1,
     name: 'Dinner',
-    lastEditDate: new Date(),
-    items: mockMenuItems
-  }
+    lastEditDate: new Date()
+  },
+  {
+    id: 2,
+    name: 'Drinks',
+    lastEditDate: new Date()
+  },
 ];

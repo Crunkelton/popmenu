@@ -1,0 +1,13 @@
+<div class="col-lg-12 col-sm-12">
+  <h1>Edit Menu</h1>
+
+  <form [formGroup]="menuForm" class="edit-form" novalidate (keyup.enter)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <div class="clearfix"></div>
+    <button mat-raised-button color="primary" type="button" [disabled]="!menuForm.valid" (click)="onSubmit()">Submit</button>
+  </form>
+</div>

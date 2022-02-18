@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuService } from '../../../services/menu.service';
 import { Menu } from '../../../models/menu';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from 'ng2-validation';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from '../../../models/menu-item';
+import { MenuFormComponent } from '../menu-form/menu-form.component';
 
 @Component({
   selector: 'app-menu-manager',
@@ -15,7 +14,9 @@ export class MenuManagerComponent implements OnInit {
   title = 'Manage Menu';
   menus: Menu[];
   controls: FormArray;
-  selected: Menu
+  selected: Menu;
+  editing: boolean;
+  @ViewChild('menuForm') menuForm: MenuFormComponent;
 
   constructor(
     private menuService: MenuService,
@@ -29,22 +30,10 @@ export class MenuManagerComponent implements OnInit {
       this.menus = resp;
 
       const toGroups = this.menus.map(menu => {
-        const menuItems: FormGroup[] = [];
-        // menu.items.forEach(x => {
-        //   menuItems.push(this.formBuilder.group({
-        //     id: [x.id, Validators.required],
-        //     menuId: [x.menuId, Validators.required],
-        //     image: [x.image, [Validators.required, CustomValidators.url]],
-        //     title: [x.title, Validators.required],
-        //     description: [x.description, Validators.required],
-        //     price: [x.price, [Validators.required, Validators.min(0)]]
-        //   }));
-        // });
-
         return new FormGroup({
           id: new FormControl(menu.id, Validators.required),
           name: new FormControl(menu.name, Validators.required),
-          items: new FormControl(menu.items, Validators.required),
+          lastEditDate: new FormControl(menu.lastEditDate),
         });
       });
       this.controls = new FormArray(toGroups);
@@ -53,6 +42,8 @@ export class MenuManagerComponent implements OnInit {
 
   selectMenu(menu: Menu): void {
     this.selected = menu;
+    this.menuForm.setMenu(menu);
+    this.editing = true;
   }
 
   isSelected(menu: Menu): boolean {
@@ -76,4 +67,8 @@ export class MenuManagerComponent implements OnInit {
   edit(): void { }
 
   remove(): void { }
+
+  onSave(menu: Menu): void {
+    this.menuService.getMenus().subscribe((resp: Menu[]) => this.menus = resp);
+  }
 }

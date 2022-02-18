@@ -24,6 +24,7 @@ import { MenuItemCardModule } from '../shared/components/menu-item-card/menu-ite
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuManagerComponent } from './components/menu-manager/menu-manager.component';
+import { MenuFormComponent } from './components/menu-form/menu-form.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MenuManagerComponent } from './components/menu-manager/menu-manager.com
     EditModeDirective,
     EditableOnEnterDirective,
     EditableOnEscapeDirective,
-    MenuManagerComponent
+    MenuManagerComponent,
+    MenuFormComponent
   ],
   imports: [
     CommonModule,

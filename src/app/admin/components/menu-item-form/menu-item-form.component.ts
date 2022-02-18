@@ -51,8 +51,6 @@ export class MenuItemFormComponent implements OnInit {
           this.onSave.emit(this.menuItemForm.value);
         });
     }
-
-
   }
 
 }

@@ -26,6 +26,15 @@ export class MenuService {
     );
   }
 
+  getNextMenuId(): Observable<number> {
+    return this.getMenus().pipe(
+      map((x: Menu[]) => {
+        const last = x.sort((a, b) => (a.id < b.id) ? 1 : -1)[0];
+        return last.id + 1;
+      })
+    );
+  }
+
   /**
    * Gets All Menus
    */
@@ -37,6 +46,19 @@ export class MenuService {
   getMenu(id: number): Observable<Menu | Response> {
     return this.http
       .get<Menu>(`api/menus/${id}`);
+  }
+
+  createMenu(menu: Menu): Observable<any> {
+    return this.getNextMenuId()
+      .pipe(
+        tap((id: number) => menu.id = id),
+        switchMap(() => this.http.post('api/menus', menu)),
+        map((result: Menu) => result)
+      );
+  }
+
+  editMenu(menu: Menu): Observable<any> {
+    return this.http.put('api/menus', menu);
   }
 
   /**
