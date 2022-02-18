@@ -23,6 +23,7 @@ import { EditableOnEscapeDirective } from './directives/editable-on-escape.direc
 import { MenuItemCardModule } from '../shared/components/menu-item-card/menu-item-card.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MenuManagerComponent } from './components/menu-manager/menu-manager.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
     ViewModeDirective,
     EditModeDirective,
     EditableOnEnterDirective,
-    EditableOnEscapeDirective
+    EditableOnEscapeDirective,
+    MenuManagerComponent
   ],
   imports: [
     CommonModule,

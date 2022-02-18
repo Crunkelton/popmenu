@@ -4,4 +4,5 @@ export interface Menu {
   id: number;
   name: string;
   items: MenuItem[];
+  lastEditDate: Date;
 }

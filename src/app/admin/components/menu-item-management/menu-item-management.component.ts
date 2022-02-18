@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { EditableComponent } from '../editable/editable.component';
 import { Menu } from '../../../models/menu';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu-item-management',
@@ -18,7 +19,9 @@ import { Menu } from '../../../models/menu';
   styleUrls: ['./menu-item-management.component.sass']
 })
 export class MenuItemManagementComponent implements OnInit {
-  title = 'Manage Menu';
+  menuId: number;
+  menu: Menu;
+  title: string;
   menuItems: MenuItem[];
   selected: MenuItem;
   editing: MenuItem;
@@ -28,7 +31,7 @@ export class MenuItemManagementComponent implements OnInit {
   http = false;
   rowEdit: number;
   controls: FormArray;
-  menu: Menu;
+
 
   newItem: MenuItem = { id: 0, menuId: 0, image: '', title: '', description: '', price: 0 };
 
@@ -42,27 +45,33 @@ export class MenuItemManagementComponent implements OnInit {
   };
 
   constructor(
+    private route: ActivatedRoute,
     private menuService: MenuService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.menuService.getMenus().subscribe((x: Menu[]) => {
-      this.menu = x[0];
+    this.route.queryParams.subscribe(params => {
+      this.menuId = parseInt(params.id, 2);
 
-      this.fetchMenuItems().subscribe(() => {
-        const toGroups = this.menuItems.map(item => {
-          return new FormGroup({
-            id: new FormControl(item.id, Validators.required),
-            menuId: new FormControl(item.menuId, Validators.required),
-            title: new FormControl(item.title, Validators.required),
-            description: new FormControl(item.description, Validators.required),
-            price: new FormControl(item.price, Validators.required),
-            image: new FormControl(item.image)
+      this.menuService.getMenu(this.menuId).subscribe((resp: Menu) => {
+        this.menu = resp;
+        this.title = `Manage ${this.menu.name} Menu`;
+
+        this.fetchMenuItems().subscribe(() => {
+          const toGroups = this.menuItems.map(item => {
+            return new FormGroup({
+              id: new FormControl(item.id, Validators.required),
+              menuId: new FormControl(item.menuId, Validators.required),
+              title: new FormControl(item.title, Validators.required),
+              description: new FormControl(item.description, Validators.required),
+              price: new FormControl(item.price, Validators.required),
+              image: new FormControl(item.image)
+            });
           });
+          this.controls = new FormArray(toGroups);
         });
-        this.controls = new FormArray(toGroups);
       });
     });
   }

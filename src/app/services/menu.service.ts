@@ -34,6 +34,11 @@ export class MenuService {
       .get<Menu[]>(`api/menus`);
   }
 
+  getMenu(id: number): Observable<Menu | Response> {
+    return this.http
+      .get<Menu>(`api/menus/${id}`);
+  }
+
   /**
    * Gets All Menu Items
    */

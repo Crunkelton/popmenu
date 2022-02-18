@@ -4,16 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { MenuItemFormComponent } from './components/menu-item-form/menu-item-form.component';
 import { MenuItemManagementComponent } from './components/menu-item-management/menu-item-management.component';
+import { MenuManagerComponent } from './components/menu-manager/menu-manager.component';
 
 const routes: Routes = [
   {
     path: '', component: AdminComponent
   },
   {
-    path: 'menu-item', component: MenuItemFormComponent
+    path: 'manage', component: MenuManagerComponent,
   },
   {
-    path: 'manage', component: MenuItemManagementComponent
+    path: 'manage/menuitems', component: MenuItemManagementComponent,
   }
 ];
 
