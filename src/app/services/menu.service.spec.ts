@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MenuItem } from '../models/menu-item';
 import { mockMenuItems } from '../testing/mockMenuItems';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemMenuItemService } from './in-mem-menu-item.service';
+import { InMemMenuService } from './in-mem-menu.service';
 
 describe('MenuService', () => {
   let service: MenuService;
@@ -14,7 +14,7 @@ describe('MenuService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HttpClientInMemoryWebApiModule.forRoot(InMemMenuItemService),
+        HttpClientInMemoryWebApiModule.forRoot(InMemMenuService),
       ]
     });
     service = TestBed.inject(MenuService);
@@ -26,13 +26,13 @@ describe('MenuService', () => {
 
   it('should match the mock menu item results',
     (done: DoneFn) => {
-      service.getMenuItemsByMenuId().subscribe((value: MenuItem[]) => {
+      service.getMenuItems().subscribe((value: MenuItem[]) => {
         expect(value).toEqual(mockMenuItems);
         done();
       });
     });
 
-  const newMenuItem = {id: 100, title: 'new item', description: 'new descirption', image: 'http://myurl.com', price: 1.99 };
+  const newMenuItem = {id: 100, menuId: 5, title: 'new item', description: 'new descirption', image: 'http://myurl.com', price: 1.99 };
 
   it('should add a new menu item', (done: DoneFn) => {
     service.createMenuItem(newMenuItem).subscribe((value: MenuItem) => {
